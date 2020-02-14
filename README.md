@@ -1,2 +1,5 @@
-# Group-1
-Repository for CS 440 Group 1
+# ParselMouth
+Repository for CS 418  Group Project
+
+
+project : analyzing H1b Acceptance trends and factors relating to it.
