@@ -69,7 +69,7 @@ def clean_states(cleaned):
        "UT":"UTAH","VT":"VERMONT","VA":"VIRGINIA","WA":"WASHINGTON","WV":"WEST VIRGINIA","WI":"WISCONSIN","WY":"WYOMING",\
        "PR":"PUERTO RICO","VI":"U.S. VIRGIN ISLANDS","MP":"NORTHERN MARIANA ISLANDS","GU":"GUAM","MH":"MARSHALL ISLANDS",\
        "PW":"PALAU","DC":"DISTRICT OF COLUMBIA","CT":"CONNECTICUT"}
-    cleaned.replace({"WORKSITE_STATE_1": state})
+    cleaned.replace({"WORKSITE_STATE_1": state},inplace = True)
     return cleaned
 
 def data_jobs(cleaned):
