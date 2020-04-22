@@ -2,7 +2,7 @@
 
 Repository for CS 418  Group Project.
 
-Project : Analyzing H1B Acceptance trends and factors relating to it.
+**Project** : Analyzing H1B Acceptance trends and factors relating to it.
 
 H1B visa is a nonimmigrant visa issued to graduate level applicants allowing them to work in the United States. The employer sponsors the H1B visa for workers with theoretical or technical expertise in specialized fields such as in IT, finance, accounting etc. An interesting fact about immigrant workers is that about 52 percent of new Silicon valley companies were founded by such workers during 1995 and 2005. Some famous CEOs like Indira Nooyi (Pepsico), Elon Musk (Tesla), Sundar Pichai (Google),Satya Nadella (Microsoft) once arrived to the US on a H1B visa.
 
