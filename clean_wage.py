@@ -7,7 +7,26 @@ def clean_wages(w):
     if isinstance(w, str):
         return(w.replace('$', '').replace(',', ''))
     return(w)
+def remove_num(text):
+    """
+    Function to clean JOB_TITLE and SOC_TITLE by removing digits from the values
+    """
+    if not any(c.isdigit() for c in text):
+        return text
+    return ''
 
+def drop_less_significant(cleaned):
+    """
+    Function to drop less records in EMPLOYER_NAME,SOC_TITLE and SOC_CODE
+    if the catergory in any of the columns is less than 15 we are dropping it
+    """
+    cleaned = cleaned.groupby("SOC_CODE").filter(lambda x: len(x) > 15)
+    cleaned = cleaned.groupby("SOC_TITLE").filter(lambda x: len(x) > 15)
+    cleaned = cleaned.groupby("EMPLOYER_NAME").filter(lambda x: len(x) > 15)
+    #cleaned = cleaned.groupby("WORKSITE_STATE_1").filter(lambda x: len(x) > 15)
+    cleaned = cleaned.groupby("WORKSITE_STATE").filter(lambda x: len(x) > 15)
+    return cleaned
+    
 def wage_feature_eng(wage):
     """
     Feature engineering by making the quantitative type data in WAGE column
