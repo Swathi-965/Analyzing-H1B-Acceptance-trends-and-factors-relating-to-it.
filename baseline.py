@@ -31,3 +31,8 @@ def run_clasifier(X_train, y_train, X_test, numpy, class_type='mean'):
     baseline_clasifier = BaselineClasifier(numpy)
     classifier = baseline_clasifier.fit(X_train, y_train, class_type)
     return baseline_clasifier.predict(X_test)
+
+def run_clasifier_(X_train, y_train, X_test, numpy, class_type='mode'):
+    baseline_clasifier = BaselineClasifier(numpy)
+    classifier = baseline_clasifier.fit(X_train, y_train, class_type)
+    return baseline_clasifier.predict(X_test)
