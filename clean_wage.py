@@ -81,16 +81,63 @@ def clean_states(cleaned):
     some values are state names, we are replacing with abbrevations wiith state
     names
     """
-    state={"AL":"ALABAMA","AK":"ALASKA","AZ":"ARIZONA","AR":"ARKANSAS","CA":"CALIFORNIA","CO":"COLORADO","DE":"DELAWARE",\
-       "FL":"FLORIDA","GA":"GEORGIA","HI":"HAWAII","ID":"IDAHO","IL":"ILLINOIS","IN":"INDIANA","IA":"IOWA","KS":"KANSAS",\
-       "KY":"KENTUCKY","LA":"LOUISIANA","ME":"MAINE","MD":"MARYLAND","MA":"MASSACHUSETTS","MI":"MICHIGAN","MN":"MINNESOTA",\
-       "MS":"MISSISSIPPI","MO":"MISSOURI","MT":"MONTANA","NE":"NEBRASKA","NV":"NEVADA","NH":"NEW HAMPSHIRE","NJ":"NEW JERSEY",\
-       "NM":"NEW MEXICO","NY":"NEW YORK","NC":"NORTH CAROLINA","ND":"NORTH DAKOTA","OH":"OHIO","OK":"OKLAHOMA","OR":"OREGON",\
-       "PA":"PENNSYLVANIA","RI":"RHODE ISLAND","SC":"SOUTH CAROLINA","SD":"SOUTH DAKOTA","TN":"TENNESSEE","TX":"TEXAS",\
-       "UT":"UTAH","VT":"VERMONT","VA":"VIRGINIA","WA":"WASHINGTON","WV":"WEST VIRGINIA","WI":"WISCONSIN","WY":"WYOMING",\
-       "PR":"PUERTO RICO","VI":"U.S. VIRGIN ISLANDS","MP":"NORTHERN MARIANA ISLANDS","GU":"GUAM","MH":"MARSHALL ISLANDS",\
-       "PW":"PALAU","DC":"DISTRICT OF COLUMBIA","CT":"CONNECTICUT"}
-    cleaned.replace({"WORKSITE_STATE": state},inplace = True)
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "AL"),"WORKSITE_STATE_1"] = "ALABAMA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "AK"),"WORKSITE_STATE_1"] = "ALASKA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "AZ"),"WORKSITE_STATE_1"] = "ARIZONA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "AR"),"WORKSITE_STATE_1"] = "ARKANSAS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "CA"),"WORKSITE_STATE_1"] = "CALIFORNIA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "CO"),"WORKSITE_STATE_1"] = "COLORADO"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "DE"),"WORKSITE_STATE_1"] = "DELAWARE"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "FL"),"WORKSITE_STATE_1"] = "FLORIDA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "GA"),"WORKSITE_STATE_1"] = "GEORGIA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "HI"),"WORKSITE_STATE_1"] = "HAWAII"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "ID"),"WORKSITE_STATE_1"] = "IDAHO"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "IL"),"WORKSITE_STATE_1"] = "ILLINOIS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "IN"),"WORKSITE_STATE_1"] = "INDIANA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "IA"),"WORKSITE_STATE_1"] = "IOWA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "KS"),"WORKSITE_STATE_1"] = "KANSAS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "KY"),"WORKSITE_STATE_1"] = "KENTUCKY"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "LA"),"WORKSITE_STATE_1"] = "LOUISIANA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "ME"),"WORKSITE_STATE_1"] = "MAINE"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MD"),"WORKSITE_STATE_1"] = "MARYLAND"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MA"),"WORKSITE_STATE_1"] = "MASSACHUSETTS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MI"),"WORKSITE_STATE_1"] = "MICHIGAN"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MN"),"WORKSITE_STATE_1"] = "MINNESOTA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MS"),"WORKSITE_STATE_1"] = "MISSISSIPPI"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MO"),"WORKSITE_STATE_1"] = "MISSOURI"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MT"),"WORKSITE_STATE_1"] = "MONTANA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "NE"),"WORKSITE_STATE_1"] = "NEBRASKA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "NV"),"WORKSITE_STATE_1"] = "NEVADA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "NH"),"WORKSITE_STATE_1"] = "NEW HAMPSHIRE"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "NJ"),"WORKSITE_STATE_1"] = "NEW JERSEY"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "NM"),"WORKSITE_STATE_1"] = "NEW MEXICO"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "NY"),"WORKSITE_STATE_1"] = "NEW YORK"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "NC"),"WORKSITE_STATE_1"] = "NORTH CAROLINA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "ND"),"WORKSITE_STATE_1"] = "NORTH DAKOTA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "OH"),"WORKSITE_STATE_1"] = "OHIO"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "OK"),"WORKSITE_STATE_1"] = "OKLAHOMA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "OR"),"WORKSITE_STATE_1"] = "OREGON"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "PA"),"WORKSITE_STATE_1"] = "PENNSYLVANIA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "RI"),"WORKSITE_STATE_1"] = "RHODE ISLAND"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "SC"),"WORKSITE_STATE_1"] = "SOUTH CAROLINA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "SD"),"WORKSITE_STATE_1"] = "SOUTH DAKOTA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "TN"),"WORKSITE_STATE_1"] = "TENNESSEE"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "TX"),"WORKSITE_STATE_1"] = "TEXAS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "UT"),"WORKSITE_STATE_1"] = "UTAH"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "VT"),"WORKSITE_STATE_1"] = "VERMONT"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "VA"),"WORKSITE_STATE_1"] = "VIRGINIA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "WA"),"WORKSITE_STATE_1"] = "WASHINGTON"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "WV"),"WORKSITE_STATE_1"] = "WEST VIRGINIA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "WI"),"WORKSITE_STATE_1"] = "WISCONSIN"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "WY"),"WORKSITE_STATE_1"] = "WYOMING"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "PR"),"WORKSITE_STATE_1"] = "PUERTO RICO"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "VI"),"WORKSITE_STATE_1"] = "U.S. VIRGIN ISLANDS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MP"),"WORKSITE_STATE_1"] = "NORTHERN MARIANA ISLANDS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "GU"),"WORKSITE_STATE_1"] = "GUAM"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "MH"),"WORKSITE_STATE_1"] = "MARSHALL ISLANDS"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "PW"),"WORKSITE_STATE_1"] = "PALAU"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "DC"),"WORKSITE_STATE_1"] = "DISTRICT OF COLUMBIA"
+    cleaned.loc[(cleaned.WORKSITE_STATE_1 == "CT"),"WORKSITE_STATE_1"] = "CONNECTICUT"
     return cleaned
 
 def cat_to_num(cleaned):
