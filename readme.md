@@ -27,13 +27,13 @@ The data used in the project has been collected from [the Office of Foreign Labo
 
 - read_files.py - A python program to read csv files for years 2015, 2016, 2017, 2018 and 2019 in an efficient way to avoid the RAM from crashing.
 
+- H1B_Visa_Analysis.ipynb: Main notebook of the project
+
 - visualizations.py- Code for the visualizations shown in the notebook.
 
-- mid_progress_report.ipnyb: Progress report submitted in April. 
+- mid_progress_report.ipynb: Progress report submitted in April. 
 
-- H1b_perm.ipnyb: Perm data set used to create visualization for Education.png
-
-- Education.png: Visualizations shows education levels. 
+- H1b_perm.ipnyb: Perm data set used to create visualization for Education.png which is attached to the H1B_Visa_Analysis Notebook.
 
 - read_me_python_files.pdf: Instructions to load python files to google colab. 
 
