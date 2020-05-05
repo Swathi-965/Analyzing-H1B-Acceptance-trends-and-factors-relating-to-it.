@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
 import string
+import nltk
 import gensim.downloader as api
 word_vectors_1 = api.load("glove-wiki-gigaword-100")
+import numpy as np
+from autocorrect import Speller 
+nltk.download('wordnet')
+nltk.download('words')
+lemmatizer = nltk.stem.WordNetLemmatizer()
+words = set(nltk.corpus.words.words())
+spell = Speller()
 
 def clean_wages(w):
     """
@@ -188,3 +196,20 @@ def grouping(position):
 def fun_word_vectors(Dataset):
     Dataset["SOC_TITLE"] = Dataset["SOC_TITLE"].apply(lambda x : grouping(x))
     return Dataset
+
+def lemmatize_text(text):
+    """
+    Function to lemmatize, converting plural to single. 
+    """
+    return lemmatizer.lemmatize(text)
+
+def spelling_checker(text):
+    """
+    Function to correct spelling mistakes.
+    """
+    return spell(text)
+
+def text_clean(cleaned):
+    cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([lemmatize_text(i) for i in txt.lower().split()]))
+    cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([spelling_checker(i) for i in txt.lower().split()]))
+    return cleaned
