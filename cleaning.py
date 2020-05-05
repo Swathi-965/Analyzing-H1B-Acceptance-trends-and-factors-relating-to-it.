@@ -146,7 +146,7 @@ def remove_punctuation(value):
     """
     result = ""
     for c in value:
-        if c not in string.punctuation:
+        if str(c) not in string.punctuation:
             result += c
         else:
             result +=" "
@@ -192,6 +192,8 @@ def text_clean(cleaned):
     cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([lemmatize_text(i) for i in txt.lower().split()]))
     cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([spelling_checker(i) for i in txt.lower().split()]))
     return cleaned  
+
+
 
 
 
