@@ -46,4 +46,20 @@ def salary(plt,sns, data_scnt,data_anlst,data_eng,mach_learn):
 
     ax2.set_title('Number of petitions for each jobs in Data Science field in 2019', fontsize=12)
     return plt
+
+def plot_precision_recall (y_test, probs,precision_recall_curve):
+    pos_probs = probs[:, 1] if probs.ndim > 1 else probs
+    plt.figure(figsize=(12,8))
+    # calculate model precision-recall curve
+    precision, recall, _ = precision_recall_curve(y_test, pos_probs)
+    print('Precision and Recall: ', precision, recall)
+    # plot the model precision-recall curve
+    plt.plot(recall, precision, marker='.', label='Logistic')
+    # axis labels
+    plt.xlabel('Recall')
+    plt.ylabel('Precision')
+    plt.legend()
+    plt.title('Precision vs Recall curve', loc='center')
+    
+    return plt
     
