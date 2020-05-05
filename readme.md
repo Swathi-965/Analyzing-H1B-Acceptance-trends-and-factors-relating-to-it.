@@ -11,6 +11,22 @@ Some famous CEOs like Indira Nooyi (Pepsico), Elon Musk (Tesla), Sundar Pichai (
 
 **Motivation**: Our team consists of five international graduate students, in the future we will be applying for H1B visa. The visa application process seems very long, complicated and uncertain. So we decided to understand this process and use Machine learning algorithms to predict the acceptance rate and trends of H1B visa petitions. 
 
+### Aim: 
+
+The goal of the project is to analyse the various trends in the H1b Visa dataset.We have two ML Models to predict acceptance or rejection of visa application and to predict the wage_rate of an applicant. 
+
+With the below visualizations in the notebook we provide insights into the H1B visa. 
+
+- Salary distribution for Data Science Domain.
+ 
+- Number of jobs in Data Science Domain.
+
+- Top 10 employers who sponsor H1B Visa.
+
+- Job Distribution in the US for each State.
+
+- Education level comparison for each Degree. 
+
 #### Data Set:
 
 The data used in the project has been collected from [the Office of Foreign Labor Certification (OFLC).](https://www.foreignlaborcert.doleta.gov/performancedata.cfm)The Data provides insight into each petition with information such as the Job title, Wage, Employer, Worksite location etc. To download the data follow the steps below:
