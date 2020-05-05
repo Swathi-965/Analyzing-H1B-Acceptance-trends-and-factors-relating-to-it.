@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import string
 import nltk
 import gensim.downloader as api
@@ -10,6 +11,7 @@ nltk.download('words')
 lemmatizer = nltk.stem.WordNetLemmatizer()
 words = set(nltk.corpus.words.words())
 spell = Speller()
+
 
 def clean_wages(w):
     """
@@ -89,67 +91,41 @@ def data_concat(pd,data_scnt,data_anlst,data_eng,mach_learn):
 
 def clean_states(cleaned):
     """
-    Function to change the WORKSITE_STATE cplumn some values are abbrevation,
+    Function to change the WORKSITE_STATE_1 cplumn some values are abbrevation,
     some values are state names, we are replacing with abbrevations wiith state
     names
     """
-    cleaned.loc[(cleaned.WORKSITE_STATE == "AL"),"WORKSITE_STATE"] = "ALABAMA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "AK"),"WORKSITE_STATE"] = "ALASKA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "AZ"),"WORKSITE_STATE"] = "ARIZONA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "AR"),"WORKSITE_STATE"] = "ARKANSAS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "CA"),"WORKSITE_STATE"] = "CALIFORNIA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "CO"),"WORKSITE_STATE"] = "COLORADO"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "DE"),"WORKSITE_STATE"] = "DELAWARE"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "FL"),"WORKSITE_STATE"] = "FLORIDA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "GA"),"WORKSITE_STATE"] = "GEORGIA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "HI"),"WORKSITE_STATE"] = "HAWAII"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "ID"),"WORKSITE_STATE"] = "IDAHO"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "IL"),"WORKSITE_STATE"] = "ILLINOIS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "IN"),"WORKSITE_STATE"] = "INDIANA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "IA"),"WORKSITE_STATE"] = "IOWA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "KS"),"WORKSITE_STATE"] = "KANSAS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "KY"),"WORKSITE_STATE"] = "KENTUCKY"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "LA"),"WORKSITE_STATE"] = "LOUISIANA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "ME"),"WORKSITE_STATE"] = "MAINE"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MD"),"WORKSITE_STATE"] = "MARYLAND"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MA"),"WORKSITE_STATE"] = "MASSACHUSETTS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MI"),"WORKSITE_STATE"] = "MICHIGAN"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MN"),"WORKSITE_STATE"] = "MINNESOTA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MS"),"WORKSITE_STATE"] = "MISSISSIPPI"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MO"),"WORKSITE_STATE"] = "MISSOURI"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MT"),"WORKSITE_STATE"] = "MONTANA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "NE"),"WORKSITE_STATE"] = "NEBRASKA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "NV"),"WORKSITE_STATE"] = "NEVADA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "NH"),"WORKSITE_STATE"] = "NEW HAMPSHIRE"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "NJ"),"WORKSITE_STATE"] = "NEW JERSEY"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "NM"),"WORKSITE_STATE"] = "NEW MEXICO"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "NY"),"WORKSITE_STATE"] = "NEW YORK"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "NC"),"WORKSITE_STATE"] = "NORTH CAROLINA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "ND"),"WORKSITE_STATE"] = "NORTH DAKOTA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "OH"),"WORKSITE_STATE"] = "OHIO"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "OK"),"WORKSITE_STATE"] = "OKLAHOMA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "OR"),"WORKSITE_STATE"] = "OREGON"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "PA"),"WORKSITE_STATE"] = "PENNSYLVANIA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "RI"),"WORKSITE_STATE"] = "RHODE ISLAND"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "SC"),"WORKSITE_STATE"] = "SOUTH CAROLINA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "SD"),"WORKSITE_STATE"] = "SOUTH DAKOTA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "TN"),"WORKSITE_STATE"] = "TENNESSEE"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "TX"),"WORKSITE_STATE"] = "TEXAS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "UT"),"WORKSITE_STATE"] = "UTAH"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "VT"),"WORKSITE_STATE"] = "VERMONT"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "VA"),"WORKSITE_STATE"] = "VIRGINIA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "WA"),"WORKSITE_STATE"] = "WASHINGTON"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "WV"),"WORKSITE_STATE"] = "WEST VIRGINIA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "WI"),"WORKSITE_STATE"] = "WISCONSIN"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "WY"),"WORKSITE_STATE"] = "WYOMING"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "PR"),"WORKSITE_STATE"] = "PUERTO RICO"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "VI"),"WORKSITE_STATE"] = "U.S. VIRGIN ISLANDS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MP"),"WORKSITE_STATE"] = "NORTHERN MARIANA ISLANDS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "GU"),"WORKSITE_STATE"] = "GUAM"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "MH"),"WORKSITE_STATE"] = "MARSHALL ISLANDS"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "PW"),"WORKSITE_STATE"] = "PALAU"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "DC"),"WORKSITE_STATE"] = "DISTRICT OF COLUMBIA"
-    cleaned.loc[(cleaned.WORKSITE_STATE == "CT"),"WORKSITE_STATE"] = "CONNECTICUT"
+    state={"AL":"ALABAMA","AK":"ALASKA","AZ":"ARIZONA","AR":"ARKANSAS","CA":"CALIFORNIA","CO":"COLORADO","DE":"DELAWARE",\
+       "FL":"FLORIDA","GA":"GEORGIA","HI":"HAWAII","ID":"IDAHO","IL":"ILLINOIS","IN":"INDIANA","IA":"IOWA","KS":"KANSAS",\
+       "KY":"KENTUCKY","LA":"LOUISIANA","ME":"MAINE","MD":"MARYLAND","MA":"MASSACHUSETTS","MI":"MICHIGAN","MN":"MINNESOTA",\
+       "MS":"MISSISSIPPI","MO":"MISSOURI","MT":"MONTANA","NE":"NEBRASKA","NV":"NEVADA","NH":"NEW HAMPSHIRE","NJ":"NEW JERSEY",\
+       "NM":"NEW MEXICO","NY":"NEW YORK","NC":"NORTH CAROLINA","ND":"NORTH DAKOTA","OH":"OHIO","OK":"OKLAHOMA","OR":"OREGON",\
+       "PA":"PENNSYLVANIA","RI":"RHODE ISLAND","SC":"SOUTH CAROLINA","SD":"SOUTH DAKOTA","TN":"TENNESSEE","TX":"TEXAS",\
+       "UT":"UTAH","VT":"VERMONT","VA":"VIRGINIA","WA":"WASHINGTON","WV":"WEST VIRGINIA","WI":"WISCONSIN","WY":"WYOMING",\
+       "PR":"PUERTO RICO","VI":"U.S. VIRGIN ISLANDS","MP":"NORTHERN MARIANA ISLANDS","GU":"GUAM","MH":"MARSHALL ISLANDS",\
+       "PW":"PALAU","DC":"DISTRICT OF COLUMBIA","CT":"CONNECTICUT"}
+    cleaned.replace({"WORKSITE_STATE": state},inplace = True)
+    return cleaned
+
+def states_vis(cleaned):
+    """
+    Function to change the states data to abbrevation codes that can be used in
+    USA map viasualization
+    """
+    state_abbrev = {'Alabama': 'AL','Alaska': 'AK','American Samoa': 'AS','Arizona': 'AZ','Arkansas': 'AR','California': 'CA',\
+                'Colorado': 'CO','Connecticut': 'CT','Delaware': 'DE','District of Columbia': 'DC','Florida': 'FL',\
+                'Georgia': 'GA','Guam': 'GU','Hawaii': 'HI','Idaho': 'ID','Illinois': 'IL','Indiana': 'IN','Iowa': 'IA',\
+                'Kansas': 'KS','Kentucky': 'KY','Louisiana': 'LA','Maine': 'ME','Maryland': 'MD','Massachusetts': 'MA',\
+                'Michigan': 'MI','Minnesota': 'MN','Mississippi': 'MS','Missouri': 'MO','Montana': 'MT','Nebraska': 'NE',\
+                'Nevada': 'NV','New Hampshire': 'NH','New Jersey': 'NJ','New Mexico': 'NM','New York': 'NY','North Carolina': 'NC',\
+                'North Dakota': 'ND','Northern Mariana Islands':'MP','Ohio': 'OH','Oklahoma': 'OK','Oregon': 'OR','Pennsylvania': 'PA',\
+                'Puerto Rico': 'PR','Rhode Island': 'RI','South Carolina': 'SC','South Dakota': 'SD','Tennessee': 'TN',\
+                'Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virgin Islands': 'VI','Virginia': 'VA','Washington': 'WA',\
+                'West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY'}
+    abbrev={}
+    for k,v in state_abbrev.items():
+      abbrev[k.upper()]=v
+    cleaned['CODE']=cleaned['WORKSITE_STATE'].map(abbrev)
     return cleaned
 
 def cat_to_num(cleaned):
@@ -158,8 +134,11 @@ def cat_to_num(cleaned):
     """
     cleaned.loc[(cleaned.H1B_DEPENDENT=="Y"),"H1B_DEPENDENT"] = 1
     cleaned.loc[(cleaned.H1B_DEPENDENT=="N"),"H1B_DEPENDENT"] = 0
+    cleaned.loc[(cleaned.CASE_STATUS == "CERTIFIED"),"CASE_STATUS"] = 1
+    cleaned.loc[(cleaned.CASE_STATUS == "DENIED"),"CASE_STATUS"] = 0
+    cleaned.loc[(cleaned.FULL_TIME_POSITION == 'Y'),"FULL_TIME_POSITION"] = 1
+    cleaned.loc[(cleaned.FULL_TIME_POSITION == 'N'),"FULL_TIME_POSITION"] = 0
     return cleaned
-
 
 def remove_punctuation(value):
     """
@@ -212,4 +191,14 @@ def spelling_checker(text):
 def text_clean(cleaned):
     cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([lemmatize_text(i) for i in txt.lower().split()]))
     cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([spelling_checker(i) for i in txt.lower().split()]))
-    return cleaned
+    return cleaned  
+
+
+
+    
+
+
+
+
+
+
