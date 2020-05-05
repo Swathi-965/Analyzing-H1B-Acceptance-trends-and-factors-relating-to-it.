@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import string
+import gensim.downloader as api
+word_vectors_1 = api.load("glove-wiki-gigaword-100")
+
 def clean_wages(w):
     """
     Function to remove '$' symbol and other delimiters from wages column which consistes of str and float type values
