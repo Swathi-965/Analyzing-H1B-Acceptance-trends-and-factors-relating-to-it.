@@ -6,7 +6,6 @@ import gensim.downloader as api
 word_vectors_1 = api.load("glove-wiki-gigaword-100")
 import pandas as pd
 import numpy as np
-<<<<<<< HEAD
 from autocorrect import Speller
 from sklearn.preprocessing import OneHotEncoder 
 import pandas as pd
