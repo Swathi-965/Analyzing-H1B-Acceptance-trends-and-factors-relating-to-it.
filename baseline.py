@@ -7,6 +7,13 @@ Original file is located at
     https://colab.research.google.com/drive/1ELj28VKxQe8E1h-VnIbU6HMb9ezVIUaB
 """ 
 import numpy as np 
+import sklearn
+from statistics import mean 
+from sklearn import metrics
+from sklearn import model_selection
+from sklearn.preprocessing import OneHotEncoder #ONE HOT ENCODING
+from sklearn.ensemble import RandomForestClassifier #Build model - Random Forest Classifier
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 
 class BaselineClasifier(): # Baseline classifier that predicts the class base on the mode of the labels.
@@ -47,3 +54,23 @@ def compute_AUC(y, prediction):
     except ValueError:
         pass
     return auc
+
+def baseline_wage(X,y):
+    accuracies = []
+    AUCs = []
+    kf = sklearn.model_selection.KFold(n_splits=4, random_state=1, shuffle=True)# Testing with K-folds 
+    for train_idx, test_idx in kf.split(X):
+        X_train, X_test, y_train, y_test = X[train_idx], X[test_idx], y[train_idx], y[test_idx] 
+        prediction = run_clasifier(X_train, y_train, X_test, np)
+        fold_accuracy = compute_accuracy(y_test, prediction)
+        fold_AUC = compute_AUC(y_test, prediction)
+        accuracies.append(fold_accuracy)
+        if fold_AUC != None: AUCs.append(fold_AUC)
+    baseline_clasifier_accuracy = mean(accuracies)
+    return baseline_clasifier_accuracy
+
+def baseline_wage_kfold(X,y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)# Testing with regular split
+    prediction = run_clasifier(X_train, y_train, X_test, np)
+    split_accuracy = compute_accuracy(y_test, prediction)
+    return split_accuracy
