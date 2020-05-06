@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import string
 import nltk
 import gensim.downloader as api
@@ -32,10 +31,6 @@ def remove_num(text):
     if not any(c.isdigit() for c in text):
         return text
     return ''
-
-
-
-
 
 def drop_less_significant(cleaned):
     """
@@ -88,6 +83,11 @@ def data_jobs(cleaned):
     return data_scnt,data_anlst,data_eng,mach_learn
 
 def data_concat(pd,data_scnt,data_anlst,data_eng,mach_learn):
+    """
+    Find all data science domain jobs and concatenate the dataframe
+    created for each job category
+    returns concatenated dataframe
+    """
     data_scnt['data']='Data Scientists'
     data_anlst['data']='Data Analysts'
     data_eng['data']='Data Engineer'
@@ -204,6 +204,9 @@ def text_clean(cleaned):
 
 
 def fun_preprocessing(cleaned):
+    """
+    Cleaning and fitting the dataframe in X and Y train to use in the ML functions
+    """
     Dataset = cleaned[["CASE_STATUS", "FULL_TIME_POSITION","SOC_TITLE", "WORKSITE_STATE", "WAGES", "H1B_DEPENDENT"]]
     Dataset.reset_index(drop = True,inplace = True)
     df = pd.DataFrame(columns = ["job_position"])
@@ -250,7 +253,7 @@ def get_df_wage(cleaned):
     Dataset_wage.drop(columns=["EMPLOYER_NAME"],axis = 1,inplace=True)
     Dataset_wage["SOC_TITLE"] = Dataset_wage["SOC_TITLE"].apply(lambda x : remove_punctuation(x))
     df_wage = pd.DataFrame(columns = ["soc_title"])
-    Dataset_wage = fun_word_vectors(Dataset_wage)# converting job titles to numeric values using word_vectors.
+    Dataset_wage["SOC_TITLE"] = Dataset_wage["SOC_TITLE"].apply(lambda x : grouping(x))# converting job titles to numeric values using word_vectors.
     df_wage["soc_title"] = Dataset_wage["SOC_TITLE"]
     Dataset_wage.drop(columns=["SOC_TITLE"],axis=1,inplace=True)
     Dataset_wage.reset_index(drop = True, inplace = True)   
@@ -261,6 +264,9 @@ def get_df_wage(cleaned):
     return Dataset_wage,df_wage
 
 def get_XY_wage(Dataset_wage,df_wage):
+    """
+    Spilt the dataframe in X and Y train for Wage prediction
+    """
     Y = Dataset_wage["WC_NUM"].astype(float)
     wv_wage = df_wage[["soc_title"]].values
     temp_var = np.vstack(wv_wage.tolist())
@@ -271,6 +277,9 @@ def get_XY_wage(Dataset_wage,df_wage):
     return X,Y
 
 def map_wage(cleaned):
+    """
+    Mapping wages to the 4 categories and creating label for wages
+    """
     #mapping wages to 4 categories
     cleaned['WAGE_CATEGORY'] =pd.cut(cleaned.WAGES,bins=[0,50000,100000,140000,200000],
                                  labels=['LOW','AVERAGE','HIGH',"VERY HIGH"])
