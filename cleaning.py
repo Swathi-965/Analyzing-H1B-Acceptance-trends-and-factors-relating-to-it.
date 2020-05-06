@@ -148,7 +148,7 @@ def remove_punctuation(value):
     """
     result = ""
     for c in value:
-        if c not in string.punctuation:
+        if str(c) not in string.punctuation:
             result += c
         else:
             result +=" "
@@ -200,6 +200,8 @@ def one_hot_encoding(Dataset):
     Encoding_df = pd.DataFrame(Encoding.fit_transform(Dataset[["WORKSITE_STATE"]]).toarray())
     Dataset = Dataset.join(Encoding_df)
     return Dataset
+
+
 
     
 
