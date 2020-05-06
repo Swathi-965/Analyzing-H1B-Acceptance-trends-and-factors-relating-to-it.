@@ -6,14 +6,16 @@ import gensim.downloader as api
 word_vectors_1 = api.load("glove-wiki-gigaword-100")
 import pandas as pd
 import numpy as np
-from autocorrect import Speller 
-from sklearn.preprocessing import OneHotEncoder
+from autocorrect import Speller
+from sklearn.preprocessing import OneHotEncoder 
+import pandas as pd
+
 nltk.download('wordnet')
 nltk.download('words')
 lemmatizer = nltk.stem.WordNetLemmatizer()
 words = set(nltk.corpus.words.words())
 spell = Speller()
-
+Encoding = OneHotEncoder(handle_unknown='ignore',sparse = True)
 
 def clean_wages(w):
     """
@@ -207,6 +209,10 @@ def text_clean(cleaned):
     return cleaned  
 
 
+def one_hot_encoding(Dataset):
+    Encoding_df = pd.DataFrame(Encoding.fit_transform(Dataset[["WORKSITE_STATE"]]).toarray())
+    Dataset = Dataset.join(Encoding_df)
+    return Dataset
 
 
 def get_df_wage(cleaned):
