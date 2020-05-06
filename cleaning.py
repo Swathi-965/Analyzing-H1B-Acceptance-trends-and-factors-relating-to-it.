@@ -4,8 +4,10 @@ import string
 import nltk
 import gensim.downloader as api
 word_vectors_1 = api.load("glove-wiki-gigaword-100")
+import pandas as pd
 import numpy as np
 from autocorrect import Speller 
+from sklearn.preprocessing import OneHotEncoder
 nltk.download('wordnet')
 nltk.download('words')
 lemmatizer = nltk.stem.WordNetLemmatizer()
@@ -29,6 +31,10 @@ def remove_num(text):
     if not any(c.isdigit() for c in text):
         return text
     return ''
+
+
+
+
 
 def drop_less_significant(cleaned):
     """
@@ -189,11 +195,73 @@ def spelling_checker(text):
     return spell(text)
 
 def text_clean(cleaned):
+    """
+    Function to  call lemmatizer and spell check
+    """
+    cleaned['JOB_TITLE']=cleaned.JOB_TITLE.apply(lambda txt: " ".join([remove_num(i) for i in txt.lower().split()]))
+    cleaned['JOB_TITLE']=cleaned['JOB_TITLE'].str.replace(',', '')
+    cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([remove_num(i) for i in txt.lower().split()]))
+    cleaned['SOC_TITLE']=cleaned['SOC_TITLE'].str.replace(',', '')
     cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([lemmatize_text(i) for i in txt.lower().split()]))
     cleaned['SOC_TITLE']=cleaned.SOC_TITLE.apply(lambda txt: " ".join([spelling_checker(i) for i in txt.lower().split()]))
     return cleaned  
 
 
+
+
+def get_df_wage(cleaned):
+    """
+    Function to form data_frame for wage classification.
+    """
+    order_date = '01-01-2018'
+    cleaned['CASE_SUBMITTED']=pd.to_datetime(cleaned['CASE_SUBMITTED'])
+    mask1 = (cleaned['CASE_SUBMITTED'] < order_date)
+    cleaned_before = cleaned.loc[mask1]
+    Dataset_wage=cleaned_before[["EMPLOYER_NAME","FULL_TIME_POSITION","SOC_TITLE", "WORKSITE_STATE", "WC_NUM","CASE_STATUS"]]
+    Dataset_wage.reset_index(drop = True,inplace = True)
+    Top_EMPLOYER = Dataset_wage["EMPLOYER_NAME"].value_counts().head(70)
+    
+    def emp_function(emp):
+        """
+        Function to  clean and take top employers
+        """
+        if emp in Top_EMPLOYER:
+            return emp
+        else:
+            return "others"
+
+    Dataset_wage["TOP_EMPLOYER"] = Dataset_wage["EMPLOYER_NAME"].apply(emp_function)
+    Dataset_wage.drop(columns=["EMPLOYER_NAME"],axis = 1,inplace=True)
+    Dataset_wage["SOC_TITLE"] = Dataset_wage["SOC_TITLE"].apply(lambda x : remove_punctuation(x))
+    df_wage = pd.DataFrame(columns = ["soc_title"])
+    Dataset_wage = fun_word_vectors(Dataset_wage)# converting job titles to numeric values using word_vectors.
+    df_wage["soc_title"] = Dataset_wage["SOC_TITLE"]
+    Dataset_wage.drop(columns=["SOC_TITLE"],axis=1,inplace=True)
+    Dataset_wage.reset_index(drop = True, inplace = True)   
+    Encoding = OneHotEncoder(handle_unknown='ignore',sparse = True)
+    Encoding_wage = pd.DataFrame(Encoding.fit_transform(Dataset_wage[["WORKSITE_STATE","TOP_EMPLOYER"]]).toarray())
+    Dataset_wage = Dataset_wage.join(Encoding_wage)
+    Dataset_wage.drop(columns=["WORKSITE_STATE","TOP_EMPLOYER"],axis=1,inplace=True)
+    return Dataset_wage,df_wage
+
+def get_XY_wage(Dataset_wage,df_wage):
+    Y = Dataset_wage["WC_NUM"].astype(float)
+    wv_wage = df_wage[["soc_title"]].values
+    temp_var = np.vstack(wv_wage.tolist())
+    Dataset_wage.drop(columns = ["WC_NUM"],inplace = True)
+    other_features = Dataset_wage.iloc[:].values
+    sum_features = np.hstack([temp_var, other_features])
+    X = sum_features
+    return X,Y
+
+def map_wage(cleaned):
+    #mapping wages to 4 categories
+    cleaned['WAGE_CATEGORY'] =pd.cut(cleaned.WAGES,bins=[0,50000,100000,140000,200000],
+                                 labels=['LOW','AVERAGE','HIGH',"VERY HIGH"])
+    df_temp = pd.DataFrame(columns = ["WC_NUM"])
+    cleaned['WC_NUM'] = pd.cut(cleaned.WAGES,bins=[0,50000,100000,140000,200000],labels=[0,1,2,3])
+    df_temp["WC_NUM"]=pd.cut(cleaned.WAGES,bins=[0,50000,100000,140000,200000],labels=[0,1,2,3])
+    return cleaned,df_temp
 
 
 
