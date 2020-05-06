@@ -7,13 +7,9 @@ word_vectors_1 = api.load("glove-wiki-gigaword-100")
 import pandas as pd
 import numpy as np
 <<<<<<< HEAD
-from autocorrect import Speller 
-from sklearn.preprocessing import OneHotEncoder
-=======
 from autocorrect import Speller
 from sklearn.preprocessing import OneHotEncoder 
 import pandas as pd
->>>>>>> 4b87d55d95bcc3af01ab8641258a87ce0f78ea71
 nltk.download('wordnet')
 nltk.download('words')
 lemmatizer = nltk.stem.WordNetLemmatizer()
