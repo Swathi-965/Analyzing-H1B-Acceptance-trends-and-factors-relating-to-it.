@@ -250,7 +250,7 @@ def get_df_wage(cleaned):
     Dataset_wage.drop(columns=["EMPLOYER_NAME"],axis = 1,inplace=True)
     Dataset_wage["SOC_TITLE"] = Dataset_wage["SOC_TITLE"].apply(lambda x : remove_punctuation(x))
     df_wage = pd.DataFrame(columns = ["soc_title"])
-    Dataset_wage = fun_word_vectors(Dataset_wage)# converting job titles to numeric values using word_vectors.
+    Dataset_wage["SOC_TITLE"] = Dataset_wage["SOC_TITLE"].apply(lambda x : grouping(x))# converting job titles to numeric values using word_vectors.
     df_wage["soc_title"] = Dataset_wage["SOC_TITLE"]
     Dataset_wage.drop(columns=["SOC_TITLE"],axis=1,inplace=True)
     Dataset_wage.reset_index(drop = True, inplace = True)   
