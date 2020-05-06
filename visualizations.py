@@ -30,6 +30,10 @@ def USA_map(go,tls,df):
     return fig
 
 def salary(plt,sns, data_scnt,data_anlst,data_eng,mach_learn):
+    """
+    Function create two visualizationf for salary distribution
+    and jobs available in the data science domain 
+    """
     bplot1=plt.boxplot([data_scnt[data_scnt['WAGES']<200000].WAGES,
                         data_anlst[data_anlst['WAGES']<200000].WAGES,
                         data_eng[data_eng['WAGES']<200000].WAGES,
@@ -48,6 +52,9 @@ def salary(plt,sns, data_scnt,data_anlst,data_eng,mach_learn):
     return plt
 
 def plot_precision_recall (plt, y_test, probs,precision_recall_curve):
+    """
+    Function to plot the precision recall graph 
+    """
     pos_probs = probs[:, 1] if probs.ndim > 1 else probs
     plt.figure(figsize=(12,8))
     # calculate model precision-recall curve
@@ -64,6 +71,10 @@ def plot_precision_recall (plt, y_test, probs,precision_recall_curve):
     return plt
 
 def plot_buy_american_order(plt, original, pd):
+    """
+    Function that plots the visualization providing insight on
+    the effects of a goverement policy on the H1B applications
+    """
     order_date = '18-04-2017'
     srt='01-01-2015'
 
