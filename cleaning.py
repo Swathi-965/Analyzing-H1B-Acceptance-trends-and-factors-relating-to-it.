@@ -154,9 +154,6 @@ def remove_punctuation(value):
             result +=" "
     return result
 
-def fun_punctuation(Dataset):
-    Dataset["SOC_TITLE"] = Dataset["SOC_TITLE"].apply(lambda x : remove_punctuation(x))
-    return Dataset
 
 def grouping(position):
     """
@@ -174,9 +171,7 @@ def grouping(position):
     else:
         return z
 
-def fun_word_vectors(Dataset):
-    Dataset["SOC_TITLE"] = Dataset["SOC_TITLE"].apply(lambda x : grouping(x))
-    return Dataset
+
 
 def lemmatize_text(text):
     """
@@ -196,13 +191,27 @@ def text_clean(cleaned):
     return cleaned  
 
 
-def one_hot_encoding(Dataset):
+def fun_preprocessing(cleaned):
+    Dataset = cleaned[["CASE_STATUS", "FULL_TIME_POSITION","SOC_TITLE", "WORKSITE_STATE", "WAGES", "H1B_DEPENDENT"]]
+    Dataset.reset_index(drop = True,inplace = True)
+    df = pd.DataFrame(columns = ["job_position"])
+    Dataset["SOC_TITLE"] = Dataset["SOC_TITLE"].apply(lambda x : remove_punctuation(x))
+    df = pd.DataFrame(columns = ["job_position"])
+    df["job_position"] = Dataset["SOC_TITLE"].apply(lambda x : grouping(x))
+    Dataset.drop(columns = ["SOC_TITLE"],axis=1,inplace=True)
+    Dataset.reset_index(drop = True, inplace = True)
     Encoding_df = pd.DataFrame(Encoding.fit_transform(Dataset[["WORKSITE_STATE"]]).toarray())
     Dataset = Dataset.join(Encoding_df)
-    return Dataset
-
-
-
+    Dataset.drop(columns = ['WORKSITE_STATE'],axis=1,inplace=True)
+    word_vectors = df[["job_position"]].values
+    temp = np.vstack(word_vectors.tolist())
+    Y = Dataset["CASE_STATUS"].astype(float)
+    Dataset.drop(columns = ["CASE_STATUS"],inplace = True)
+    other_features = Dataset.iloc[:].values
+    all_features = np.hstack([temp, other_features])
+    X = all_features
+    return X, Y
+    
     
 
 
