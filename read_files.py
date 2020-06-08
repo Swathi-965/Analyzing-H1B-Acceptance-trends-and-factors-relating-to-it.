@@ -1,13 +1,6 @@
 import pandas as pd
 
 def read_csv(pd,link2015,link2016,link2017,link2018,link2019):
-    """
-    Our Project works on data from 2015 to 2019
-    The data is taken from OFLC (link in the notebook)
-    Each year the column names vary this has been fixed in the code below
-    the dataframe for all years are concatenated to create one dataframe
-    and the intermediate dataframes are deleted to avoid the RAM from crashing
-    """
     
     file2015=pd.read_csv(link2015,encoding='latin-1', low_memory=False)
     file2015.rename(columns = {'H-1B_DEPENDENT':'H1B_DEPENDENT','SOC_NAME':'SOC_TITLE','WAGE_RATE_OF_PAY':'WAGE_RATE_OF_PAY_FROM'}, inplace = True)
