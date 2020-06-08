@@ -16,10 +16,7 @@ from sklearn.ensemble import RandomForestClassifier #Build model - Random Forest
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 
-class BaselineClasifier():
-    """
-    Baseline classifier that predicts the class base on the mode of the labels.
-    """
+class BaselineClasifier(): # Baseline classifier that predicts the class base on the mode of the labels.
     def __init__(self, np):
         self.central_tendency = None
         self.np = np
@@ -58,29 +55,7 @@ def compute_AUC(y, prediction):
         pass
     return auc
 
-def Acceptance_baseline(X,y):
-    """
-    Baseline classifier function used for prdicting acceptance/rejection
-    """
-    accuracies = []
-    AUCs = []
-    kf = sklearn.model_selection.KFold(n_splits=4, random_state=1, shuffle=True)# Testing with K-folds 
-    for train_idx, test_idx in kf.split(X):
-        X_train, X_test, y_train, y_test = X[train_idx], X[test_idx], y[train_idx], y[test_idx] 
-        prediction = run_clasifier(X_train, y_train, X_test, np)
-        fold_accuracy = compute_accuracy(y_test, prediction)
-        fold_AUC = compute_AUC(y_test, prediction)
-        accuracies.append(fold_accuracy)
-        if fold_AUC != None: AUCs.append(fold_AUC)
-    baseline_clasifier_accuracy = mean(accuracies)
-    print('Baseline accuracy (K-fold): ', baseline_clasifier_accuracy)
-    print('AUC K-fold: ', mean(AUCs))
-    return baseline_clasifier_accuracy,mean(AUCs)
-
 def baseline_wage(X,y):
-    """
-    Baseline classifier function used for predicting wage rate 
-    """
     accuracies = []
     AUCs = []
     kf = sklearn.model_selection.KFold(n_splits=4, random_state=1, shuffle=True)# Testing with K-folds 
